@@ -1,0 +1,56 @@
+<div class="container">
+    <div class="row pt-5">
+        <div class="col-md bg-light">
+            <h3 class="fancyFont">Editor</h3>
+            <form [formGroup]="editorForm" (ngSubmit)="onSubmit()">
+                <div class="row">
+                    <div class="col-12">
+                        <mat-form-field class="example-full-width">
+                            <input matInput id="title" type="text" required name="title" formControlName="title"
+                                placeholder="Title">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm">
+                        <mat-select placeholder="Category" formControlName="category" id="category" name="category">
+                            <mat-option [value]="category.id" *ngFor="let category of categories">
+                                {{category.categoryName}}</mat-option>
+                        </mat-select>
+                    </div>
+                    <div class="col-sm">
+                        &nbsp;
+                        <mat-slide-toggle formControlName="isActive" name="isPublic" [checked]="checked">
+                            <span>Public</span>
+                        </mat-slide-toggle>
+                    </div>
+                    <div class="col-sm">
+                        &nbsp;
+                        <mat-slide-toggle formControlName="allowComments" name="isAllowed" [checked]="checkedAllow">
+                            <span>Allow Comments</span>
+                        </mat-slide-toggle>
+                    </div>
+                </div>
+                <br />
+                <hr />
+                <div class="form-group bg-light color-accent">
+                    <quill-editor [styles]="{height: '400px',  backgroundColor: 'white'}" formControlName="editor">
+                    </quill-editor>
+                </div>
+                <br>
+                <button [disabled]="editorForm.invalid" type="submit" mat-raised-button color="accent">Preview</button>
+            </form>
+        </div>
+    </div>
+    <br />
+    <hr />
+    <div class="row pt-5">
+        <div class="col-md bg-light p-4">
+            <h3 class="fancyFont">Preview</h3>
+            <div class="ql-container ql-snow" style="border-width: 0;">
+                <div class="ql-editor" [innerHTML]="editorContent">
+                </div>
+            </div> <button mat-raised-button color="accent" (click)="onSave()">Save</button>
+        </div>
+    </div>
+</div>
