@@ -11,8 +11,9 @@ import { TOKEN_NAME } from 'src/app/Shared/Services/auth.constant';
 import { NgxSpinnerService } from 'ngx-spinner';
 import Typed from 'typed.js';
 import { ThemeService } from 'src/app/Shared/Services/theme.service';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { DataStorageService } from '../service/data-storage.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private _mobileQueryListener: () => void;
   isDarkTheme: Observable<boolean>;
   isDark: boolean;
+  subscription: Subscription
 
   constructor(private router: Router,
     changeDetectorRef: ChangeDetectorRef,
@@ -35,7 +37,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     public dialog: MatDialog,
     private spinner: NgxSpinnerService,
     private themeService: ThemeService,
-    public userService: UserService) {
+    public userService: UserService,
+    private dataStorageService: DataStorageService) {
     this.router.events.subscribe(evt => {
       if (evt instanceof NavigationStart) {
         this.loading = true;
@@ -77,18 +80,19 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.subscription = this.dataStorageService.fetchPosts().subscribe();
     this.themeService.isDarkTheme.subscribe(theme => {
       this.isDark = theme;
-      if(theme)
+      if (theme)
         localStorage.setItem('dark-theme', "true");
-      else{
+      else {
         localStorage.setItem('dark-theme', "false");
       }
     });
-    if(localStorage.getItem('dark-theme').includes("true")){
-      this.themeService.setDarkTheme(true); 
+    if (localStorage.getItem('dark-theme').includes("true")) {
+      this.themeService.setDarkTheme(true);
     } else {
-      this.themeService.setDarkTheme(false); 
+      this.themeService.setDarkTheme(false);
     }
     this.themeService.isDarkTheme.subscribe(theme => this.isDark = theme);
 
@@ -255,7 +259,7 @@ export class LoginDialog implements OnInit {
   }
 
   ngOnInit() {
-    if(this.data.isDark)
+    if (this.data.isDark)
       this.overlayContainer.getContainerElement().classList.add('unicorn-dark-theme');
     else {
       this.overlayContainer.getContainerElement().classList.remove('unicorn-dark-theme');

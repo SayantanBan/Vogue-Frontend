@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Post } from '../Models/Post';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { catchError, retry, tap } from 'rxjs/operators';
 import { TOKEN_NAME } from './auth.constant';
 import { Store } from '@ngrx/store';
@@ -14,11 +14,27 @@ import * as PostsActions from '../Store/post.actions';
 })
 export class PostService {
 
-  postPublicUrl = "/public/posts"
-  postSecuredUrl = "/authenticated"
+  postsChanged = new Subject<Post[]>();
+  private posts: Post[] = [];
 
   constructor(private http: HttpClient,
     private store: Store<fromApp.AppState>) { }
+
+  setPosts(posts: Post[]) {
+    this.posts = posts;
+    this.postsChanged.next(this.posts.slice());
+  }
+
+  getPosts() {
+    return this.posts.slice();
+  }
+
+  getUniquePost(index: number) {
+    return this.posts[index];
+  }
+
+  postPublicUrl = "/public/posts"
+  postSecuredUrl = "/authenticated"
 
   addPost(post: Post, id: number, categoryId: number): Observable<Post> {
     return this.http.post<Post>(this.postSecuredUrl + "/posts", { post, id, categoryId })

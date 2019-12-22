@@ -22,7 +22,7 @@ export class AllPostsComponent implements OnInit {
   filteredPostList: Post[];
   selectedPostCountRadioButton: string = '0';
 
-  constructor(private postService: PostService, 
+  constructor(private postService: PostService,
     private spinner: NgxSpinnerService,
     private store: Store<fromApp.AppState>) { }
 
@@ -41,8 +41,12 @@ export class AllPostsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getPosts();
-    this.spinner.show();
+    this.filteredPostList = this.postService.getPosts();
+    console.log(this.filteredPostList)
+    if(this.filteredPostList.length<=0){
+      console.log(this.filteredPostList)
+      this.getPosts();
+    }
   }
 
   getPosts(): void {
@@ -55,15 +59,25 @@ export class AllPostsComponent implements OnInit {
     // });
     // console.log(this.allPosts)
 
-    this.postService.getAllPosts()
-      .subscribe(result => {
-        this.allPosts = result;
+    // this.postService.getAllPosts()
+    //   .subscribe(result => {
+    //     this.allPosts = result;
+    //     this.filteredPostList = result;
+    //     this.isLoading = false;
+    //     this.spinner.hide();
+    //   },
+    //     error => console.log(error)
+    //   )
+    this.spinner.show();
+    console.log("getPosts");
+    this.postService.postsChanged.subscribe(
+      result => {
         this.filteredPostList = result;
         this.isLoading = false;
         this.spinner.hide();
       },
-        error => console.log(error)
-      )
+      error => console.log(error)
+    )
   }
 
   onPostsCountRadioButtonChange(selectedRadioButtonValue: string): void {
