@@ -1,0 +1,38 @@
+<div class="container">
+    <h3 class="fancyFont">My Posts</h3>
+    <mat-form-field class="example-form-field" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput type="text" placeholder="Search" [(ngModel)]="value">
+        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+            <mat-icon>close</mat-icon>
+        </button>
+        <button *ngIf="!value" mat-button matSuffix mat-icon-button aria-label="Clear">
+            <mat-icon>search</mat-icon>
+        </button>
+    </mat-form-field>
+    <div class="row justify-content-md-center">
+        <div class="col-md" style="width: 100%">
+            <div *ngFor="let post of filteredPostList | paginate: { itemsPerPage: 10, currentPage: p }">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                        <div mat-card-avatar class="example-header-image"></div>
+                        <mat-card-title [innerHTML]=post.postName [routerLink]="['/home/dashboard/detail',post.id]">
+                        </mat-card-title>
+                        <button style="float: right" mat-icon-button color="accent" aria-label="Edit"
+                            [routerLink]="['/home/dashboard/createPost',  post.id]">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button mat-icon-button color="warn" aria-label="Delete" (click)="onDelete(post.id)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <mat-card-subtitle>{{post.postDate | date:'medium'}}</mat-card-subtitle>
+                    </mat-card-header>
+                </mat-card>
+            </div>
+            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+        </div>
+    </div>
+</div>
+<ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-beat" [fullScreen]="true">
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

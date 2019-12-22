@@ -1,0 +1,75 @@
+<h1 mat-dialog-title>{{isSignUp ? 'Sign Up' : 'Login'}}</h1>
+<div mat-dialog-content>
+    <div *ngIf="!isSignUp">
+        <form [formGroup]="loginForm" (ngSubmit)="onNewAccount()">
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput placeholder="firstname.lastname@xyz.com" formControlName="username"
+                    [errorStateMatcher]="matcher" name="username" id='username'>
+                <mat-icon matSuffix>account_circle</mat-icon>
+                <mat-error
+                    *ngIf="loginForm.controls.username.hasError('email') && !loginForm.controls.username.hasError('required')">
+                    Please enter a valid email address
+                </mat-error>
+                <mat-error *ngIf="loginForm.controls.username.hasError('required')">
+                    Email is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" placeholder="Password" formControlName="password" name="password"
+                    id='password'>
+                <mat-icon matSuffix>security</mat-icon>
+            </mat-form-field>
+            <p [innerHTML]="htmlSnippet" *ngIf="error" id="errorDiv"></p>
+        </form>
+    </div>
+    <div *ngIf="isSignUp">
+        <div style="margin-top: 20px;">
+            <div class="alert alert-info" *ngIf="emailSent">An email has been sent to the email address you just
+                registered. Please validate your email adderss and update your password info.</div>
+            <form [formGroup]="signinForm" (ngSubmit)="onNewAccount()">
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput placeholder="Enter you email" formControlName="username"
+                        [errorStateMatcher]="matcher" name="username" id='username'>
+                    <mat-icon matSuffix>account_circle</mat-icon>
+                    <mat-error
+                        *ngIf="signinForm.controls.username.hasError('email') && !signinForm.controls.username.hasError('required')">
+                        Please enter a valid email address
+                    </mat-error>
+                    <mat-error *ngIf="loginForm.controls.username.hasError('required')">
+                        Email is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Firstname</mat-label>
+                    <input matInput type="text" placeholder="Firstname" formControlName="firstName" name="firstName"
+                        id='firstname'>
+                    <mat-icon matSuffix>security</mat-icon>
+                </mat-form-field>
+                <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Lastname</mat-label>
+                    <input matInput type="text" placeholder="Lastname" formControlName="lastName" name="lastName"
+                        id='lastname'>
+                    <mat-icon matSuffix>security</mat-icon>
+                </mat-form-field>
+                <div style="justify-content: center; align-items: center; display: flex">
+                    <button mat-raised-button type="submit" class="mat-primary">Create new account</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div style="display: flex;
+    align-items: center;
+    justify-content: center;">
+        <button *ngIf="!isSignUp" mat-button color="accent" [disabled]="loading" (click)="onSignUp()">Sign up</button>
+    </div>
+</div>
+<div mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" [disabled]="loading" (click)="onNoClick()">No Thanks</button>
+    <button *ngIf="!isSignUp" mat-raised-button color="accent" [innerHTML]='loading? signingIn : signIn'
+        (click)="onSubmit()" [disabled]="!loginForm.valid"></button>
+    <button *ngIf="isSignUp" mat-raised-button color="accent" (click)="onSignIn()">Already have account? Sign
+        in</button>
+</div>

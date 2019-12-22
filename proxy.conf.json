@@ -1,0 +1,29 @@
+{
+    "/public/*": {
+        "target": "http://localhost:8090",
+        "secure": false,
+        "pathRewrite": {
+            "^/": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/authenticated/*": {
+        "target": "http://localhost:8090",
+        "secure": false,
+        "pathRewrite": {
+            "^/": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/oauth/*": {
+        "target": "http://localhost:8090",
+        "secure": false,
+        "pathRewrite": {
+            "^/oauth": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

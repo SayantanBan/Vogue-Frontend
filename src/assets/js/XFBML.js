@@ -1,0 +1,1 @@
+FB.XFBML.parse()
