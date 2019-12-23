@@ -6,6 +6,9 @@ import { retry, catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { Category } from 'src/app/Shared/Models/Category';
 import { CategoryService } from 'src/app/Shared/Services/category.service';
+import { Store } from '@ngrx/store';
+import * as fromApp from '../../../Shared/Store/app.reducer'
+import * as PostsActions from '../../../Shared/Store/post.actions'
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,8 @@ export class DataStorageService {
 
   constructor(private http: HttpClient,
     private postService: PostService,
-    private categoryService: CategoryService) { }
+    private categoryService: CategoryService,
+    private store: Store<fromApp.AppState>) { }
 
   fetchPosts() {
     return this.http.get<Post[]>(this.postPublicUrl).pipe(
@@ -26,6 +30,7 @@ export class DataStorageService {
       catchError(this.handleError),
       tap(posts => {
         this.postService.setPosts(posts);
+        this.store.dispatch(new PostsActions.SetPosts(posts));
       }) // then handle the error)
     );
   }

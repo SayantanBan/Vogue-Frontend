@@ -17,8 +17,7 @@ export class PostService {
   postsChanged = new Subject<Post[]>();
   private posts: Post[] = [];
 
-  constructor(private http: HttpClient,
-    private store: Store<fromApp.AppState>) { }
+  constructor(private http: HttpClient) { }
 
   setPosts(posts: Post[]) {
     this.posts = posts;
