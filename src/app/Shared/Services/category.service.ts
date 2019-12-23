@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, Subject } from 'rxjs';
 import { Category } from '../Models/Category';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -9,9 +9,25 @@ import { retry, catchError } from 'rxjs/operators';
 })
 export class CategoryService {
 
+  categoriesChanged = new Subject<Category[]>();
+  private categories: Category[] = [];
+
   categoryUrl = "/public/category";
 
   constructor(private http: HttpClient) { }
+
+  setCategories(categories: Category[]) {
+    this.categories = categories;
+    this.categoriesChanged.next(this.categories.slice());
+  }
+
+  getCategories() {
+    return this.categories.slice();
+  }
+
+  getUniqueCategory(index: number) {
+    return this.categories[index];
+  }
 
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(this.categoryUrl).pipe(

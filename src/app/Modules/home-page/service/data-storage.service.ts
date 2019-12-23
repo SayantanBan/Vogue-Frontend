@@ -4,6 +4,8 @@ import { PostService } from 'src/app/Shared/Services/post.service';
 import { Post } from 'src/app/Shared/Models/Post';
 import { retry, catchError, tap } from 'rxjs/operators';
 import { throwError } from 'rxjs';
+import { Category } from 'src/app/Shared/Models/Category';
+import { CategoryService } from 'src/app/Shared/Services/category.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,9 +13,11 @@ import { throwError } from 'rxjs';
 export class DataStorageService {
 
   postPublicUrl = "/public/posts"
+  categoryUrl = "/public/category";
 
   constructor(private http: HttpClient,
-    private postService: PostService) { }
+    private postService: PostService,
+    private categoryService: CategoryService) { }
 
   fetchPosts() {
     return this.http.get<Post[]>(this.postPublicUrl).pipe(
@@ -22,6 +26,17 @@ export class DataStorageService {
       catchError(this.handleError),
       tap(posts => {
         this.postService.setPosts(posts);
+      }) // then handle the error)
+    );
+  }
+
+  fetchCategories() {
+    return this.http.get<Category[]>(this.categoryUrl).pipe(
+      // tap(posts => this.store.dispatch(new PostsActions.SetPosts(posts))),
+      retry(3), // retry a failed request up to 3 times
+      catchError(this.handleError),
+      tap(categories => {
+        this.categoryService.setCategories(categories);
       }) // then handle the error)
     );
   }

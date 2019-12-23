@@ -17,11 +17,12 @@ export class PostCountComponent implements OnInit {
   selectedRadioButtonValue: string = '0';
 
   ngOnInit() {
+    this.categories = this.service.getCategories();
     this.getAllCategory();
   }
 
   getAllCategory() {
-    this.service.getAllCategories().subscribe(result => {
+    this.service.categoriesChanged.subscribe(result => {
       this.categories = result
     },
       error => console.log(error))

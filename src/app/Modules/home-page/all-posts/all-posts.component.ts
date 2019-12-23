@@ -42,11 +42,8 @@ export class AllPostsComponent implements OnInit {
 
   ngOnInit() {
     this.filteredPostList = this.postService.getPosts();
-    console.log(this.filteredPostList)
-    if(this.filteredPostList.length<=0){
-      console.log(this.filteredPostList)
-      this.getPosts();
-    }
+    this.getPosts();
+
   }
 
   getPosts(): void {
@@ -68,13 +65,9 @@ export class AllPostsComponent implements OnInit {
     //   },
     //     error => console.log(error)
     //   )
-    this.spinner.show();
-    console.log("getPosts");
     this.postService.postsChanged.subscribe(
       result => {
         this.filteredPostList = result;
-        this.isLoading = false;
-        this.spinner.hide();
       },
       error => console.log(error)
     )

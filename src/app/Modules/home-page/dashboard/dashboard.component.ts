@@ -29,7 +29,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   private _mobileQueryListener: () => void;
   isDarkTheme: Observable<boolean>;
   isDark: boolean;
-  subscription: Subscription
+  subscription: Subscription;
+  categorySubscription: Subscription;
 
   constructor(private router: Router,
     changeDetectorRef: ChangeDetectorRef,
@@ -81,6 +82,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscription = this.dataStorageService.fetchPosts().subscribe();
+    this.categorySubscription = this.dataStorageService.fetchCategories().subscribe();
     this.themeService.isDarkTheme.subscribe(theme => {
       this.isDark = theme;
       if (theme)
@@ -113,6 +115,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+    this.categorySubscription.unsubscribe();
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
