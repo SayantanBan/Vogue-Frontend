@@ -46,12 +46,12 @@ export class AllPostsComponent implements OnInit {
 
   getPosts(): void {
     // console.log("getPosts");
-    this.store
-    .select('posts')
-    .pipe(map(postState => postState.posts))
-    .subscribe((posts: Post[]) => {
-      this.filteredPostList = posts;
-    });
+    // this.store
+    // .select('posts')
+    // .pipe(map(postState => postState.posts))
+    // .subscribe((posts: Post[]) => {
+    //   this.filteredPostList = posts;
+    // });
     // console.log(this.allPosts)
 
     // this.postService.getAllPosts()
@@ -64,12 +64,12 @@ export class AllPostsComponent implements OnInit {
     //     error => console.log(error)
     //   )
     
-    // this.postService.postsChanged.subscribe(
-    //   result => {
-    //     this.filteredPostList = result;
-    //   },
-    //   error => console.log(error)
-    // )
+    this.postService.postsChanged.subscribe(
+      result => {
+        this.filteredPostList = result;
+      },
+      error => console.log(error)
+    )
   }
 
   onPostsCountRadioButtonChange(selectedRadioButtonValue: string): void {

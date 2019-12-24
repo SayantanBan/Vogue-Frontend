@@ -7,7 +7,7 @@
 </mat-radio-group> -->
 <mat-chip-list class="example-radio-group" [(ngModel)]="selectedRadioButtonValue" aria-label="Select a category"
     >
-    <mat-chip class="example-radio-button" (click)="onRadioButtonSelectionChange(0)">All
+    <mat-chip class="example-radio-button" (click)="onRadioButtonSelectionChange('0')">All
     </mat-chip>
     <mat-chip class="example-radio-button" *ngFor="let category of categories">
         <a (click)="onRadioButtonSelectionChange(category.id)">{{category.categoryName}}</a>

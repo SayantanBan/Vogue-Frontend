@@ -9,7 +9,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class AuthenticationService {
 
-  static AUTH_TOKEN = 'http://localhost:8090/oauth/token';
+  static AUTH_TOKEN = 'https://my-vogue.herokuapp.com/oauth/token';
 
   constructor(private _http: HttpClient) {
   }

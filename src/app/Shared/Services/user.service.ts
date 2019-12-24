@@ -80,7 +80,7 @@ export class UserService {
   }
 
   newUser(username: string, firstname:string, lastname: string) {
-    let url = 'http://localhost:8080/public/users/newUser';
+    let url = 'https://my-vogue.herokuapp.com/public/users/newUser';
     
     const httpOptions = {
       headers: new HttpHeaders({

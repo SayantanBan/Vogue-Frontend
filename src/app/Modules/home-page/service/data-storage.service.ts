@@ -29,8 +29,8 @@ export class DataStorageService {
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError),
       tap(posts => {
-        this.postService.setPosts(posts);
-        this.store.dispatch(new PostsActions.SetPosts(posts));
+        this.postService.setPosts(posts); /*using normal Subject*/
+        // this.store.dispatch(new PostsActions.SetPosts(posts));
       }) // then handle the error)
     );
   }

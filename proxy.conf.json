@@ -1,6 +1,6 @@
 {
     "/public/*": {
-        "target": "http://localhost:8090",
+        "target": "https://my-vogue.herokuapp.com",
         "secure": false,
         "pathRewrite": {
             "^/": ""
@@ -9,7 +9,7 @@
         "logLevel": "debug"
     },
     "/authenticated/*": {
-        "target": "http://localhost:8090",
+        "target": "https://my-vogue.herokuapp.com",
         "secure": false,
         "pathRewrite": {
             "^/": ""
@@ -18,7 +18,7 @@
         "logLevel": "debug"
     },
     "/oauth/*": {
-        "target": "http://localhost:8090",
+        "target": "https://my-vogue.herokuapp.com",
         "secure": false,
         "pathRewrite": {
             "^/oauth": ""
