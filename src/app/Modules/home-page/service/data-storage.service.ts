@@ -15,8 +15,8 @@ import * as PostsActions from '../../../Shared/Store/post.actions'
 })
 export class DataStorageService {
 
-  postPublicUrl = "/public/posts"
-  categoryUrl = "/public/category";
+  postPublicUrl = "https://my-vogue.herokuapp.com/public/posts"
+  categoryUrl = "https://my-vogue.herokuapp.com/public/category";
 
   constructor(private http: HttpClient,
     private postService: PostService,

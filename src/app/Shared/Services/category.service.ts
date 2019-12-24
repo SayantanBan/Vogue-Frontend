@@ -12,7 +12,7 @@ export class CategoryService {
   categoriesChanged = new Subject<Category[]>();
   private categories: Category[] = [];
 
-  categoryUrl = "/public/category";
+  categoryUrl = "https://my-vogue.herokuapp.com/public/category";
 
   constructor(private http: HttpClient) { }
 

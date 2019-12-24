@@ -32,8 +32,8 @@ export class PostService {
     return this.posts[index];
   }
 
-  postPublicUrl = "/public/posts"
-  postSecuredUrl = "/authenticated"
+  postPublicUrl = "https://my-vogue.herokuapp.com/public/posts"
+  postSecuredUrl = "https://my-vogue.herokuapp.com/authenticated"
 
   addPost(post: Post, id: number, categoryId: number): Observable<Post> {
     return this.http.post<Post>(this.postSecuredUrl + "/posts", { post, id, categoryId })

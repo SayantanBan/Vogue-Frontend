@@ -15,7 +15,7 @@ export class UserService {
   isAdmin: boolean;
   userName: string;
 
-  userUrl = "/authenticated/users"
+  userUrl = "https://my-vogue.herokuapp.com/authenticated/users"
 
   constructor(private http: HttpClient) { }
 
@@ -58,7 +58,7 @@ export class UserService {
       })
     };
     
-    return this.http.get<User>("/authenticated/users/login/" + userName, httpOptions).pipe(
+    return this.http.get<User>("https://my-vogue.herokuapp.com/authenticated/users/login/" + userName, httpOptions).pipe(
       retry(3), // retry a failed request up to 3 times
       catchError(this.handleError) // then handle the error)
     );
