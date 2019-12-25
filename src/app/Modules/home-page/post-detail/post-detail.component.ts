@@ -27,8 +27,8 @@ export class PostDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     if (this.service.getPosts().length <= 0) {
-      this.spinner.show();
       this.dataStorageService.fetchPosts().subscribe(
         result => {
           this.dataStorageService.fetchCategories().subscribe(
@@ -51,6 +51,7 @@ export class PostDetailComponent implements OnInit {
       );
     } else {
       this.getPostDetail();
+      this.spinner.hide();
     }
   }
 
