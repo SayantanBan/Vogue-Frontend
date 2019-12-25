@@ -26,10 +26,26 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit() {
     if (this.service.getPosts().length <= 0) {
-      this.dataStorageService.fetchPosts().subscribe();
-      this.dataStorageService.fetchCategories().subscribe();
+      this.dataStorageService.fetchPosts().subscribe(
+        result => {
+          this.dataStorageService.fetchCategories().subscribe(
+            result => this.getPostDetail(),
+            error => {
+              console.error(
+                `Backend returned code ${error.status}, ` +
+                `body was: ${error.error}`);
+            }
+          );
+        },
+        error => {
+          console.error(
+            `Backend returned code ${error.status}, ` +
+            `body was: ${error.error}`);
+        }
+      );
+    } else {
+      this.getPostDetail();
     }
-    this.getPostDetail();
   }
 
   loadAPI() {
