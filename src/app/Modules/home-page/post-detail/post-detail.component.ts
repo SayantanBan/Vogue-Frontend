@@ -26,8 +26,8 @@ export class PostDetailComponent implements OnInit {
 
   ngOnInit() {
     if (this.service.getPosts().length <= 0) {
-      this.dataStorageService.fetchPosts();
-      this.dataStorageService.fetchCategories();
+      this.dataStorageService.fetchPosts().subscribe();
+      this.dataStorageService.fetchCategories().subscribe();
     }
     this.getPostDetail();
   }
