@@ -4,6 +4,7 @@ import { PostService } from 'src/app/Shared/Services/post.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Post } from 'src/app/Shared/Models/Post';
 import { DataStorageService } from '../service/data-storage.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-post-detail',
@@ -20,16 +21,21 @@ export class PostDetailComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private service: PostService,
     private dataStorageService: DataStorageService,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private spinner: NgxSpinnerService) {
     this.loadAPI();
   }
 
   ngOnInit() {
     if (this.service.getPosts().length <= 0) {
+      this.spinner.show();
       this.dataStorageService.fetchPosts().subscribe(
         result => {
           this.dataStorageService.fetchCategories().subscribe(
-            result => this.getPostDetail(),
+            result => {
+              this.getPostDetail();
+              this.spinner.hide();
+            },
             error => {
               console.error(
                 `Backend returned code ${error.status}, ` +
