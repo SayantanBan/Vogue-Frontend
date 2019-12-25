@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PostService } from 'src/app/Shared/Services/post.service';
 import { SafeUrl, DomSanitizer } from '@angular/platform-browser';
 import { Post } from 'src/app/Shared/Models/Post';
+import { DataStorageService } from '../service/data-storage.service';
 
 @Component({
   selector: 'app-post-detail',
@@ -16,11 +17,18 @@ export class PostDetailComponent implements OnInit {
   script: any = 'javascript:FB.XFBML.parse()';
   trustedScript: any;
   post: Post;
-  constructor(private route: ActivatedRoute, private service: PostService, private sanitizer: DomSanitizer) {
+  constructor(private route: ActivatedRoute,
+    private service: PostService,
+    private dataStorageService: DataStorageService,
+    private sanitizer: DomSanitizer) {
     this.loadAPI();
   }
 
   ngOnInit() {
+    if (this.service.getPosts().length <= 0) {
+      this.dataStorageService.fetchPosts();
+      this.dataStorageService.fetchCategories();
+    }
     this.getPostDetail();
   }
 
