@@ -23,11 +23,11 @@ export class PostDetailComponent implements OnInit {
     private dataStorageService: DataStorageService,
     private sanitizer: DomSanitizer,
     private spinner: NgxSpinnerService) {
+    this.spinner.show();
     this.loadAPI();
   }
 
   ngOnInit() {
-    this.spinner.show();
     if (this.service.getPosts().length <= 0) {
       this.dataStorageService.fetchPosts().subscribe(
         result => {
