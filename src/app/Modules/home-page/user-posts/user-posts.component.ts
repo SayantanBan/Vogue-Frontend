@@ -83,6 +83,34 @@ export class UserPostsComponent implements OnInit {
       : this.allPosts;
   }
 
+  get commentsAlowedSearch(): string {
+    // console.log("getter");
+    // console.log(this._listFilter);
+    return this._value;
+  }
+
+  set commentsAlowedSearch(value: string) {
+    // console.log("setter");
+    this._commentsAlowedSearch = value.toLowerCase();
+    this.filteredPostList = this.commentsAlowedSearch
+      ? this.performFilter(this.commentsAlowedSearch, 6)
+      : this.allPosts;
+  }
+
+  get editdateSearch(): string {
+    // console.log("getter");
+    // console.log(this._listFilter);
+    return this._editdateSearch;
+  }
+
+  set editdateSearch(value: string) {
+    // console.log("setter");
+    this._editdateSearch = value.toLowerCase();
+    // this.filteredPostList = this.commentsAlowedSearch
+    //   ? this.performFilter(this.commentsAlowedSearch, 6)
+    //   : this.allPosts;
+  }
+
   performFilter(filterBy: string, value: number): Post[] {
     if (value == 1)
       return this.filteredPostList.filter(
@@ -111,6 +139,12 @@ export class UserPostsComponent implements OnInit {
             .toString()
             .toLocaleLowerCase()
             .indexOf(filterBy) !== -1
+      );
+    else if (value == 5)
+      return this.filteredPostList.filter(
+        (post: Post) =>
+          post.allowComment.toString().toLocaleLowerCase().indexOf(filterBy) !==
+          -1
       );
   }
 

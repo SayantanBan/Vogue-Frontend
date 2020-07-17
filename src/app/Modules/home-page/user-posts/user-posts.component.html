@@ -136,7 +136,7 @@
   </table>
   <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
-      <li class="page-item" *ngIf="allPosts > 10">
+      <li class="page-item" *ngIf="p > 1">
         <a type="button" class="page-link" href="#" tabindex="-1">Previous</a>
       </li>
       <li class="page-item" *ngFor="let number of numbers">
@@ -144,7 +144,7 @@
           number + 1
         }}</a>
       </li>
-      <li class="page-item" *ngIf="allPosts > 10">
+      <li class="page-item" *ngIf="p > 1">
         <a type="button" class="page-link">Next</a>
       </li>
     </ul>
