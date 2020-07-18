@@ -1,177 +1,47 @@
 <div class="container">
   <h3 class="fancyFont">My Posts</h3>
-  <mat-form-field class="example-form-field" appearance="outline">
-    <mat-label>Search</mat-label>
-    <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
-    <button
-      mat-button
-      *ngIf="value"
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-      (click)="value = ''"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-    <button
-      *ngIf="!value"
-      mat-button
-      matSuffix
-      mat-icon-button
-      aria-label="Clear"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
-  </mat-form-field>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">
-          Title
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(1)"></i>
-        </th>
-        <th scope="col">
-          Published On
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(2)"></i>
-        </th>
-        <th scope="col">
-          Last Edited
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(3)"></i>
-        </th>
-        <th scope="col">
-          Category
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(4)"></i>
-        </th>
-        <th scope="col">
-          Status
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(1)"></i>
-        </th>
-        <th scope="col">
-          Comments
-          <i type="button" class="fa fa-fw fa-sort" (click)="onSort(5)"></i>
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-title"
-            placeholder="Search..."
-            [(ngModel)]="titleSearch"
-          />
-        </td>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-date"
-            placeholder="Search..."
-            [(ngModel)]="postdateSearch"
-          />
-        </td>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-editLast"
-            placeholder="Search..."
-            [(ngModel)]="editdateSearch"
-          />
-        </td>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-category"
-            placeholder="Search..."
-            [(ngModel)]="categorySearch"
-          />
-        </td>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-status"
-            placeholder="Search..."
-            [(ngModel)]="statusSearch"
-          />
-        </td>
-        <td>
-          <input
-            type="search"
-            class="form-control ds-input"
-            id="search-input-comments"
-            placeholder="Search..."
-            [(ngModel)]="commentsAlowedSearch"
-          />
-        </td>
-      </tr>
-      <tr *ngFor="let post of filteredPostList">
-        <td>
-          <i
-            type="button"
-            class="fa fa-pencil"
-            aria-hidden="true"
-            [routerLink]="['/home/dashboard/createPost', post.id]"
-          ></i
-          >&nbsp;
-          <i
-            type="button"
-            class="fa fa-trash"
-            aria-hidden="true"
-            (click)="onDelete(post.id)"
-          ></i>
-          {{ post.postName }}
-        </td>
-        <td>{{ post.postDate | date: "fullDate" }}</td>
-        <td>{{ post.lastEdit | date: "fullDate" }}</td>
-        <td>{{ post.category.categoryName }}</td>
-        <td>{{ post.status }}</td>
-        <td>{{ post.allowComment }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item" *ngIf="p > 1">
-        <a type="button" class="page-link" href="#" tabindex="-1">Previous</a>
-      </li>
-      <li class="page-item" *ngFor="let number of numbers">
-        <a type="button" class="page-link" (click)="onPageChange(number)">{{
-          number + 1
-        }}</a>
-      </li>
-      <li class="page-item" *ngIf="p > 1">
-        <a type="button" class="page-link">Next</a>
-      </li>
-    </ul>
-  </nav>
-
-  <!-- <div class="row justify-content-md-center">
-        <div class="col-md" style="width: 100%">
-            <div *ngFor="let post of filteredPostList | paginate: { itemsPerPage: 10, currentPage: p }">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title [innerHTML]=post.postName [routerLink]="['/home/dashboard/detail',post.id]">
-                        </mat-card-title>
-                        <button style="float: right" mat-icon-button color="accent" aria-label="Edit"
-                            [routerLink]="['/home/dashboard/createPost',  post.id]">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button mat-icon-button color="warn" aria-label="Delete" (click)="onDelete(post.id)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                        <mat-card-subtitle>{{post.postDate | date:'medium'}}</mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
-            </div>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
-    </div> -->
+  <div class="row justify-content-md-center">
+    <div class="col-md" style="width: 100%;">
+      <div
+        *ngFor="
+          let post of filteredPostList
+            | paginate: { itemsPerPage: 10, currentPage: p }
+        "
+      >
+        <mat-card class="example-card">
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title
+              [innerHTML]="post.postName"
+              [routerLink]="['/home/dashboard/detail', post.id]"
+            >
+            </mat-card-title>
+            <button
+              style="float: right;"
+              mat-icon-button
+              color="accent"
+              aria-label="Edit"
+              [routerLink]="['/home/dashboard/createPost', post.id]"
+            >
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="warn"
+              aria-label="Delete"
+              (click)="onDelete(post.id)"
+            >
+              <mat-icon>delete</mat-icon>
+            </button>
+            <mat-card-subtitle>{{
+              post.postDate | date: "medium"
+            }}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+  </div>
 </div>
 <ngx-spinner
   bdOpacity="0.9"
