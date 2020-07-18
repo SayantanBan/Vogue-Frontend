@@ -26,6 +26,11 @@ mat-sidenav-content{
   right: 0;
 }
 
+span {
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
 .example-is-mobile .example-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
