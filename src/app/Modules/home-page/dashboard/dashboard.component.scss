@@ -8,7 +8,12 @@ mat-sidenav.md-closed.md-locked-open-add-active {
   max-width: 300px !important;
 }
 
-mat-sidenav-content{
+span {
+  font-family: "Montserrat";
+  font-weight: 500;
+}
+
+mat-sidenav-content {
   height: 100 !important;
 }
 .example-container {
@@ -80,7 +85,11 @@ button {
   min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
-} 
+}
+
+.mat-button {
+  font-family: "Montserrat";
+}
 
 a {
   font-family: "Montserrat";
