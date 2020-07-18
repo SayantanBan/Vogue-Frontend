@@ -71,10 +71,14 @@ export class PostDetailComponent implements OnInit {
 
   getPostDetail() {
     const id = +this.route.snapshot.paramMap.get("id");
-    this.post = this.service.getUniquePost(id);
-    // this.service.getPost(id).subscribe(result => {console.log(result);this.post = result}, error => console.log(error));
-    this.fbCommentPluginLink =
-      "https://vogue-dev.herokuapp.com/home/detail/" + id;
+    // this.post = this.service.getUniquePost(id);
+    this.service.getPost(id).subscribe(
+      (result) => {
+        this.post = result;
+      },
+      (error) => console.log(error)
+    );
+    this.fbCommentPluginLink = "http://localhost:4200/home/detail/" + id;
     this.fbUrl = this.sanitizer.bypassSecurityTrustUrl(
       this.fbCommentPluginLink
     );

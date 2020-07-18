@@ -1,40 +1,92 @@
 <div class="container">
-    <h3 class="fancyFont">Hot Posts</h3>
-    <mat-form-field class="example-form-field" appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput type="text" placeholder="Search" [(ngModel)]="value">
-        <button mat-button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-            <mat-icon>close</mat-icon>
-        </button>
-        <button *ngIf="!value" mat-button matSuffix mat-icon-button aria-label="Clear">
-            <mat-icon>search</mat-icon>
-        </button>
-    </mat-form-field>
-    <app-post-count (countRadioButtonSelectionChanged)="onPostsCountRadioButtonChange($event)"></app-post-count>
-    <div class="row justify-content-md-center">
-        <div class="col-md" style="width: 100%">
-            <div *ngFor="let post of filteredPostList | paginate: { itemsPerPage: 10, currentPage: p }, let i = index">
-                <mat-card class="example-card" *ngIf="selectedPostCountRadioButton==0 ||
-                selectedPostCountRadioButton==post.category.id">
-                    <mat-card-header>
-                        <div mat-card-avatar class="example-header-image"></div>
-                        <mat-card-title [innerHTML]=post.postName [routerLink]="['/home/dashboard/detail', i]">
-                        </mat-card-title>
-                        <mat-card-subtitle>{{post.postDate | date:'medium'}}</mat-card-subtitle>
-                    </mat-card-header>
-                    <app-read-more [text]=post.postContent [maxHeight]="250"></app-read-more>
-                </mat-card>
-            </div>
-            <pagination-controls (pageChange)="p = $event"></pagination-controls>
-        </div>
+  <h3 class="fancyFont">Hot Posts</h3>
+  <mat-form-field class="example-form-field" appearance="outline">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" placeholder="Search" [(ngModel)]="value" />
+    <button
+      mat-button
+      *ngIf="value"
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+      (click)="value = ''"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <button
+      *ngIf="!value"
+      mat-button
+      matSuffix
+      mat-icon-button
+      aria-label="Clear"
+    >
+      <mat-icon>search</mat-icon>
+    </button>
+  </mat-form-field>
+  <app-post-count
+    (countRadioButtonSelectionChanged)="onPostsCountRadioButtonChange($event)"
+  ></app-post-count>
+  <div class="row justify-content-md-center">
+    <div class="col-md" style="width: 100%;">
+      <div
+        *ngFor="
+          let post of filteredPostList
+            | paginate: { itemsPerPage: 10, currentPage: p };
+          let i = index
+        "
+      >
+        <mat-card
+          class="example-card"
+          *ngIf="
+            selectedPostCountRadioButton == 0 ||
+            selectedPostCountRadioButton == post.category.id
+          "
+        >
+          <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title
+              [innerHTML]="post.postName"
+              [routerLink]="['/home/dashboard/detail', post.id]"
+            >
+            </mat-card-title>
+            <mat-card-subtitle>{{
+              post.postDate | date: "medium"
+            }}</mat-card-subtitle>
+          </mat-card-header>
+          <app-read-more
+            [text]="post.postContent"
+            [maxHeight]="250"
+          ></app-read-more>
+        </mat-card>
+      </div>
+      <pagination-controls (pageChange)="p = $event"></pagination-controls>
     </div>
+  </div>
 </div>
-<ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-beat" [fullScreen]="true">
-    <p style="color: white"> Loading... </p>
+<ngx-spinner
+  bdOpacity="0.9"
+  bdColor="#333"
+  size="medium"
+  color="#fff"
+  type="ball-beat"
+  [fullScreen]="true"
+>
+  <p style="color: white;">Loading...</p>
 </ngx-spinner>
-<div class="footer" style="text-align: center">
-    <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
-            href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a
-            href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0
-            BY</a></div>
+<div class="footer" style="text-align: center;">
+  <div>
+    Icons made by
+    <a href="https://www.flaticon.com/authors/freepik" title="Freepik"
+      >Freepik</a
+    >
+    from
+    <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is
+    licensed by
+    <a
+      href="http://creativecommons.org/licenses/by/3.0/"
+      title="Creative Commons BY 3.0"
+      target="_blank"
+      >CC 3.0 BY</a
+    >
+  </div>
 </div>
