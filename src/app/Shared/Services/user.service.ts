@@ -19,7 +19,7 @@ export class UserService {
   isAdmin: boolean;
   userName: string;
 
-  userUrl = "https://my-vogue.herokuapp.com/authenticated/users";
+  userUrl = "https://my-vogue.herokuapp.com/";
 
   constructor(private http: HttpClient) {}
 
@@ -64,7 +64,7 @@ export class UserService {
 
     return this.http
       .get<User>(
-        "https://my-vogue.herokuapp.com/authenticated/users/login/" + userName,
+        this.userUrl + "authenticated/users/login/" + userName,
         httpOptions
       )
       .pipe(
@@ -83,12 +83,15 @@ export class UserService {
       }),
     };
     return this.http
-      .get<Post[]>(this.userUrl + "/posts/" + id, httpOptions)
+      .get<Post[]>(
+        this.userUrl + "authenticated/users/posts/" + id,
+        httpOptions
+      )
       .pipe(retry(3), catchError(this.handleError));
   }
 
   newUser(username: string, firstname: string, lastname: string) {
-    let url = "https://my-vogue.herokuapp.com/public/users/newUser";
+    let url = this.userUrl + "public/users/newUser";
 
     const httpOptions = {
       headers: new HttpHeaders({
