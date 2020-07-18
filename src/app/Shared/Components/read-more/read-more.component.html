@@ -1,0 +1,3 @@
+<div [innerHTML]="text" [class.collapsed]="isCollapsed" [style.height]="isCollapsed ? maxHeight+'px' : 'auto'">
+</div>
+<button *ngIf="isCollapsable" (click)="isCollapsed =! isCollapsed" mat-raised-button color="accent">Read {{isCollapsed? 'more':'less'}}</button>

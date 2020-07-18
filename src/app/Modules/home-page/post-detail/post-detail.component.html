@@ -1,0 +1,19 @@
+<div class="container">
+    <ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="ball-beat" [fullScreen]="true">
+        <p style="color: white"> Loading... </p>
+    </ngx-spinner>
+    <mat-card class="example-card">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title [innerHTML]=post.postName></mat-card-title>
+            <mat-card-subtitle>{{post.postDate | date:'medium'}}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content [innerHTML]=post.postContent>
+        </mat-card-content>
+        <div id="fb-root"></div>
+        <div class="fb-comments" data-href="http://localhost:4200/home/dashboard/detail/post.id" data-colorscheme="dark"
+            data-width="" data-numposts="5"></div>
+        <!-- <mat-card-actions>
+        </mat-card-actions> -->
+    </mat-card>
+</div>

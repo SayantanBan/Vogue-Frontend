@@ -1,0 +1,29 @@
+{
+    "/public/*": {
+        "target": "https://my-vogue.herokuapp.com",
+        "secure": false,
+        "pathRewrite": {
+            "^/": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/authenticated/*": {
+        "target": "https://my-vogue.herokuapp.com",
+        "secure": false,
+        "pathRewrite": {
+            "^/": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    },
+    "/oauth/*": {
+        "target": "https://my-vogue.herokuapp.com",
+        "secure": false,
+        "pathRewrite": {
+            "^/oauth": ""
+        },
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

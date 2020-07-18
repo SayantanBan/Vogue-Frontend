@@ -1,0 +1,24 @@
+.example-card {
+  max-width: 100%;
+  margin: 5px;
+  word-break: break-all;
+}
+
+.container {
+  min-height: 100vh;
+}
+
+mat-card img {
+  object-fit: cover; /*this makes de image in src fit to the size of specified below*/
+  width: 100%; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: 80%;
+}
+
+.example-header-image {
+  background-image: url("https://www.eyedocs.co.uk/components/com_community/assets/user-anon.png");
+  background-size: cover;
+}
+
+.example-form-field {
+  display: inline;
+}
