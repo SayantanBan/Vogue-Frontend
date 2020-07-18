@@ -9,7 +9,7 @@
   >
     <p style="color: white;">Loading...</p>
   </ngx-spinner>
-  <mat-card class="example-card">
+  <mat-card class="example-card" *ngIf="post">
     <mat-card-header>
       <div mat-card-avatar class="example-header-image"></div>
       <mat-card-title [innerHTML]="post.postName"></mat-card-title>
@@ -21,7 +21,7 @@
     <div id="fb-root"></div>
     <div
       class="fb-comments"
-      data-href="fbUrl"
+      data-href="https://vogue-dev.herokuapp.com/home/dashboard/detail/post.id"
       data-colorscheme="dark"
       data-width=""
       data-numposts="5"

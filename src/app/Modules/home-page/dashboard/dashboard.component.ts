@@ -123,10 +123,12 @@ export class DashboardComponent implements OnInit, OnDestroy {
         localStorage.setItem("dark-theme", "false");
       }
     });
-    if (localStorage.getItem("dark-theme").includes("true")) {
-      this.themeService.setDarkTheme(true);
-    } else {
-      this.themeService.setDarkTheme(false);
+    if (localStorage.getItem("dark-theme")) {
+      if (localStorage.getItem("dark-theme").includes("true"))
+        this.themeService.setDarkTheme(true);
+      else {
+        this.themeService.setDarkTheme(false);
+      }
     }
     this.themeService.isDarkTheme.subscribe((theme) => (this.isDark = theme));
 
